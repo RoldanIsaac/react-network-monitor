@@ -1,69 +1,67 @@
-# React + TypeScript + Vite
+# 🔍 Network Process Monitor
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Una aplicación web moderna construida con **Flask (backend)** y **React (frontend)** que permite:
 
-Currently, two official plugins are available:
+- 📡 Listar procesos activos del sistema (vía `netstat`)
+- 🔍 Ver detalles de cada proceso
+- ❌ Eliminar procesos desde la interfaz web
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## 🛠 Tecnologías
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- 🐍 **Flask** – API REST para exponer información del sistema
+- ⚛️ **React** – Interfaz de usuario interactiva y responsiva
+- 📦 **psutil** + `netstat` – Para obtener información del sistema
+- 🌐 **Fetch API** – Para comunicación entre el frontend y backend
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+## 📸 Vista previa
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+![preview](https://user-images.githubusercontent.com/your-image.png)  
+_(Agrega una captura si deseas)_
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 📁 Estructura del proyecto
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+/backend
+└── app.py # Flask app con 3 endpoints
+/frontend
+└── src/
+└── App.jsx # UI con tabla, filtros y acciones
+
+# 🔍 Network Process Monitor
+
+A modern web application built with **Flask (backend)** and **React (frontend)** that allows you to:
+
+- 📡 View active network processes using `netstat`
+- 🔍 See detailed information about each process
+- ❌ Terminate processes directly from the interface
+
+---
+
+## 🛠 Technologies Used
+
+- 🐍 **Flask** – RESTful API backend
+- ⚛️ **React** – Interactive frontend UI
+- 📦 **psutil** + `netstat` – For fetching system-level network and process info
+- 🌐 **Fetch API** – For communication between frontend and backend
+
+---
+
+## 📸 Preview
+
+![preview](https://user-images.githubusercontent.com/your-image.png)  
+_(Add a screenshot here if you'd like)_
+
+---
+
+## 📁 Project Structure
+
+/backend
+└── app.py # Flask app with API routes
+/frontend
+└── src/
+└── App.jsx # React UI with table, filters, actions
