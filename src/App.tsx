@@ -1,37 +1,59 @@
-import NetworkMonitor from "./components/network-monitor/NetworkMonitor";
+import NetworkMonitor from "./components/NetworkMonitor/NetworkMonitor";
 import { useState } from "react";
-
-interface Connection {
-  conn_id: string;
-  local: string;
-  remote: string;
-  protocol: string;
-  state: string;
-  memory: number;
-  pid: number;
-  process: string;
-}
+import type { Connection } from "./core/interfaces/Connection";
 
 const App = () => {
+  const apiUrl = "http://localhost:5000/api";
   const [connections, setConnections] = useState<Connection[]>([]);
 
-  fetch("http://localhost:5000/api/connections").then((res) => {
-    console.log("Response received:", res);
+  fetch(`${apiUrl}/connections`).then((res) => {
+    // console.log("Response received:", res);
     res.json().then((data) => {
-      console.log("Data received:", data);
+      //   console.log("Data received:", data);
       setConnections(data.connections || []);
     });
   });
+
+  const handleProcessDetails = (conn: Connection) => {
+    console.log("Process details for connection:", conn);
+    fetch(`${apiUrl}/process/${conn.pid}`)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Process details:", data);
+        alert(
+          `Process Details:\nPID: ${data.pid}\nName: ${data.name}\nStatus: ${data.status}`
+        );
+      })
+      .catch((error) => {
+        console.error("Error fetching process details:", error);
+      });
+  };
+
+  const handleKillProcess = (pid: number) => {
+    console.log("Killing process with PID:", pid);
+    fetch(`${apiUrl}/kill/${pid}`, { method: "DELETE" })
+      .then((response) => {
+        if (response.ok) {
+          setConnections((prev) => prev.filter((conn) => conn.pid !== pid));
+          alert("successfully killed process with PID " + pid);
+        } else {
+          console.error("Failed to kill process:", response.statusText);
+        }
+      })
+      .catch((error) => {
+        console.error("Error killing process:", error);
+      });
+  };
 
   return (
     <div>
       <NetworkMonitor
         connections={connections}
         onKillProcess={(conn) => {
-          fetch(`/api/kill/${conn.pid}`, { method: "DELETE" });
+          handleKillProcess(conn.pid);
         }}
         onViewDetails={(conn) => {
-          alert(`Detalles de ${conn.process} (PID ${conn.pid})`);
+          handleProcessDetails(conn);
         }}
       />
     </div>
